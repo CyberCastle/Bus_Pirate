@@ -193,6 +193,7 @@ void serviceuser(void) {
 
       switch (c) {
       case 0x08:                   // backspace(^H)
+      case 0x7F:                   // backspace using screen/PuTTY
         if (tmpcmdend != cmdstart) // not at begining?
         {
           if (tmpcmdend == cmdend) // at the end?
@@ -225,7 +226,7 @@ void serviceuser(void) {
         }
         break;
       case 0x04:                 // delete (^D)
-      case 0x7F:                 // delete key
+      delete_char:
         if (tmpcmdend != cmdend) // not at the end
         {
           repeat = 0; // use as temp, not valid here anyway
@@ -268,6 +269,11 @@ void serviceuser(void) {
             c = user_serial_read_byte();
             if (c == '~')
               goto home;
+            break;
+          case '3': // Delete when using screen/PuTTY
+            c = user_serial_read_byte();
+            if (c == '~')
+              goto delete_char;
             break;
           case '4': // VT100+ end key (example use in PuTTY)
             c = user_serial_read_byte();
