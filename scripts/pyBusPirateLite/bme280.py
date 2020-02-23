@@ -20,7 +20,7 @@ You should have received a copy of the GNU General Public License
 along with pyBusPirate.  If not, see <http://www.gnu.org/licenses/>.
 """
 import sys, optparse
-import numpy as np
+# import numpy as np
 from time import sleep
 from struct import unpack
 from pyBusPirateLite.SPI import *
@@ -184,10 +184,12 @@ def main():
     bme280.begin()
 
     print("Checking chip ID: ", end='')
-    if bme280.read_reg8(0xD0) == 0x60:
+    chipID = bme280.read_reg8(0xD0)
+
+    if chipID == 0x60:
         print("OK")
     else:
-        print("ERROR")
+        print(f"ERROR ({chipID} != 0x60")
         sys.exit()
 
     bme280.end()
@@ -226,20 +228,20 @@ def main():
 
     bme280.begin()
     bcompA = bme280.read_data(0x88, 26) # 0x88 - 0xA1
-    bme280.end();
+    bme280.end()
 
     bme280.begin()
     bcompB = bme280.read_data(0xE1, 7) # 0xE1 - 0xE7
     bme280.end()
 
-    fp = None
-    # fp = open("bme280.bin","wb")
+    #fp = None
+    fp = open("bme280.bin","wb")
     
-	if fp: 
-		fp.write(bres);
-	    fp.write(bcompA)
-    	fp.write(bcompB)
-	    fp.close()
+    if fp is not None:
+        fp.write(bres)
+        fp.write(bcompA)
+        fp.write(bcompB)
+        fp.close()
 
     print("Reset Bus Pirate to user terminal: ", end='')
     if spi.resetBP():
@@ -260,7 +262,7 @@ def file_test():
 
     bme280 = BME280(None)
 
-    fp = open("bme280.bin", "rb")
+    fp = open("/tmp/bme280.bin", "rb")
 
     bres = fp.read(8)
 
@@ -283,5 +285,5 @@ def file_test():
     print("RH: {:.2f}%".format(humidity))
 
 if __name__ == '__main__':
-    main()
-    #file_test()
+    #main()
+    file_test()
