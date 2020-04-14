@@ -139,9 +139,9 @@ class BME280:
         return pressure / 100
     
 """ enter binary mode """
-def main():
+def buspirate_test(buspirate_dev:str, filename:str):
 
-    spi = SPI("/dev/tty.usbserial-pirate_1", 115200)
+    spi = SPI(buspirate_dev, 115200)
 
     print("Entering binmode: ")
     if spi.BBmode():
@@ -163,7 +163,9 @@ def main():
     else:
         print("failed.")
         sys.exit()
-    sleep(0.5);
+
+    sleep(0.5)
+
     print("Configuring SPI speed: ")
     if spi.set_speed(SPISpeed._125KHZ):
         print("OK.")
@@ -234,10 +236,8 @@ def main():
     bcompB = bme280.read_data(0xE1, 7) # 0xE1 - 0xE7
     bme280.end()
 
-    #fp = None
-    fp = open("bme280.bin","wb")
-    
-    if fp is not None:
+    if filename is not None:
+        fp = open("bme280.bin","wb")
         fp.write(bres)
         fp.write(bcompA)
         fp.write(bcompB)
@@ -258,11 +258,11 @@ def main():
     print("Pressure: {:.2f}hPa".format(pressure/100.0))
     print("RH: {:.2f}%".format(humidity))
 
-def file_test():
+def file_test(filename:str):
 
     bme280 = BME280(None)
 
-    fp = open("/tmp/bme280.bin", "rb")
+    fp = open(filename, "rb")
 
     bres = fp.read(8)
 
@@ -285,5 +285,5 @@ def file_test():
     print("RH: {:.2f}%".format(humidity))
 
 if __name__ == '__main__':
-    #main()
-    file_test()
+    buspirate_test("/dev/tty.usbserial-pirate_1", None)
+    #file_test("bme280.bin")
