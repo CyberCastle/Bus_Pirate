@@ -41,3 +41,4 @@
 /Firmware/busPirate.X/nbproject/Package-default.bash
 /Firmware/busPirate.X/nbproject/private/
 /Bootloaders/BPv3-bootloader/firmware-v4.5/ds30loader.X/build/default/
+__pycache__
