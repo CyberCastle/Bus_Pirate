@@ -4,7 +4,7 @@
 ;
 ; File description:	user settings and configuration bits
 ;
-; Copyright: 		Copyright � 2009, Mikael Gustafsson
+; Copyright: 		Copyright © 2009, Mikael Gustafsson
 ;
 ; Webpage: 			http://mrmackey.no-ip.org/elektronik/ds30loader/
 ;

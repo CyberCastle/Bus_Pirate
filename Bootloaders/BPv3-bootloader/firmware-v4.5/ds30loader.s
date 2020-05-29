@@ -4,7 +4,7 @@
 ;
 ; File description:	Main firmwarefile
 ;
-; Copyright: 		Copyright � 2009, Mikael Gustafsson
+; Copyright: 		Copyright © 2009, Mikael Gustafsson
 ;
 ; Version			1.0.2 november 2009
 ;

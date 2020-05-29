@@ -379,7 +379,7 @@
 
 #ifdef BP_ENABLE_I2C_SUPPORT
 
-#ifdef BUSPIRATEV4
+#if defined(BUSPIRATEV4) || defined(BPV3_IS_REV_B4_OR_LATER)
 
 /**
  * Enable usage of the on-board hardware I2C bus.
