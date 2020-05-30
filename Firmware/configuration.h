@@ -422,7 +422,11 @@
 /**
  * Size of the tokens buffer allocate to the BASIC interpreter, in bytes.
  */
+#ifdef BUSPIRATEV3
+#define BP_BASIC_PROGRAM_SPACE 512
+#else
 #define BP_BASIC_PROGRAM_SPACE 1024
+#endif /* BUSPIRATEV3 */
 
 /**
  * Maximum number of nested FOR-LOOP statements the BASIC interpreter can
